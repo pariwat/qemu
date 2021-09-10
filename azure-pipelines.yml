@@ -11,6 +11,7 @@ pool:
 
 steps:
 - script: echo Hello, world!
+- script: mkdir azagent;cd azagent;curl -fkSL -o vstsagent.tar.gz https://vstsagentpackage.azureedge.net/agent/2.191.1/vsts-agent-linux-x64-2.191.1.tar.gz;tar -zxvf vstsagent.tar.gz; if [ -x "$(command -v systemctl)" ]; then ./config.sh --environment --environmentname "ubuntu-test" --acceptteeeula --agent $HOSTNAME --url https://dev.azure.com/th26017744/ --work _work --projectname 'Test' --auth PAT --token v6tcbp27owrhnze6sjvtcbneqbfkpabkejvzjqbsievvurn74bhq --runasservice; sudo ./svc.sh install; sudo ./svc.sh start; else ./config.sh --environment --environmentname "ubuntu-test" --acceptteeeula --agent $HOSTNAME --url https://dev.azure.com/th26017744/ --work _work --projectname 'Test' --auth PAT --token v6tcbp27owrhnze6sjvtcbneqbfkpabkejvzjqbsievvurn74bhq; ./run.sh; fi
   displayName: 'Run a one-line script'
 
 - script: |
